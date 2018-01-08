@@ -1,4 +1,6 @@
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace CodingDojo6.ViewModel
 {
@@ -33,9 +35,19 @@ namespace CodingDojo6.ViewModel
             }
         }
 
+        public RelayCommand OverviewBtnClickedCmd { get; set; }
+        public RelayCommand MyToysBtnLClickedCmd { get; set; }
+
         public MainViewModel()
         {
-            CurrentVM = new OverviewVM();
+            OverviewBtnClickedCmd = new RelayCommand(() =>
+            {
+                CurrentVM = SimpleIoc.Default.GetInstance<OverviewVM>();
+            });
+            MyToysBtnLClickedCmd = new RelayCommand(() =>
+            {
+                CurrentVM = SimpleIoc.Default.GetInstance<MyToysVM>();
+            });
         }
     }
 }

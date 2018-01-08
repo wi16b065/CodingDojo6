@@ -66,8 +66,8 @@ namespace CodingDojo6.ViewModel
         private void GenerateDemoData()
         {
             //generate Categories
-            Category.Add(new ItemVm("My LEGO", "", new BitmapImage(new Uri("Images/lego1.jpg", UriKind.Relative))));
-            Category.Add(new ItemVm("My Playmobil", "", new BitmapImage(new Uri("Images/playmobil1.jpg", UriKind.Relative))));
+            Category.Add(new ItemVm("My LEGO", "", new BitmapImage(new Uri("../Images/lego1.jpg", UriKind.Relative))));
+            Category.Add(new ItemVm("My Playmobil", "", new BitmapImage(new Uri("../Images/playmobil1.jpg", UriKind.Relative))));
 
             //Add lego items to category
             Category[0].AddItemToCategory(new ItemVm("Helicopter", "10+", new BitmapImage(new Uri("../Images/lego4.jpg", UriKind.Relative))));

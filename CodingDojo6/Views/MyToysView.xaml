@@ -8,6 +8,17 @@
              d:DesignHeight="300" d:DesignWidth="500"
              DataContext="{Binding Source={StaticResource Locator}, Path=MyToys}">
     <Grid>
-        <Button Content="TestMytoysView"></Button>
+        <ListBox ItemsSource="{Binding MyToysCollection}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Image Source="{Binding Image}" Height="70" Margin="5,0,5,0"></Image>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

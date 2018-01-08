@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\ItemVm.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MessengerVM.cs" />
     <Compile Include="ViewModel\MyToysVM.cs" />
     <Compile Include="ViewModel\OverviewVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
