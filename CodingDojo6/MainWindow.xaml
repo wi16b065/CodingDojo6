@@ -10,8 +10,12 @@
         Title="MainWindow" Height="700" Width="950"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
-    
-    <Grid ShowGridLines="True">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConv"/>
+    </Window.Resources>
+
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -21,30 +25,35 @@
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        
-        
+
+        <!--switch views section-->
         <StackPanel Grid.Column="0" Grid.Row="1" Margin="10">
-            <Button Command="{Binding OverviewBtnClickedCmd}" Content="Overview" Margin="10" Width="100"></Button>
-            <Button Command="{Binding MyToysBtnLClickedCmd}" Content="My Toys" Width="100"></Button>
+            <Button Command="{Binding OverviewBtnClickedCmd}" Content="Overview" Margin="10" Width="90"></Button>
+            <Button Command="{Binding MyToysBtnLClickedCmd}" Content="My Toys" Width="90"></Button>
         </StackPanel>
 
-        <ContentControl Content="{Binding CurrentVM}" Grid.Column="1" Grid.Row="1">
-            <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type vm:OverviewVM}">
-                    <views:OverviewView/>
-                </DataTemplate>
-                <DataTemplate DataType="{x:Type vm:MyToysVM}">
-                    <views:MyToysView/>
-                </DataTemplate>
-            </ContentControl.Resources>
-        </ContentControl>
+        <Border BorderBrush="Black" BorderThickness="1,1,0,1" CornerRadius="20,0,0,0" Grid.Column="1" Grid.Row="1">
+            
+            <!--MulitVm section => displays current view-->
+            <ContentControl Content="{Binding CurrentVM}" >
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vm:OverviewVM}">
+                        <views:OverviewView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type vm:MyToysVM}">
+                        <views:MyToysView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Border>
 
         <Grid Grid.Column="2" Grid.Row="2">
-            <Image Source="{Binding }" Margin="10"></Image>
-            <Border BorderBrush="DarkGray" BorderThickness="1" CornerRadius="10" Margin="5">
-                <Label Content="test" FontSize="20" VerticalAlignment="Center"/>
-            </Border>
+            <DockPanel LastChildFill="True">
+                <Image DockPanel.Dock="Left" Source="{Binding MsgImage}" Height="60" Margin="10,0,10,0"/>
+                <Border DockPanel.Dock="Right" BorderBrush="DarkGray" BorderThickness="1" CornerRadius="10" Margin="5" Visibility="{Binding IsInfo, Converter={StaticResource BoolToVisConv}}">
+                    <Label Content="{Binding InfoMsg}" FontSize="15" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                </Border>   
+            </DockPanel>
         </Grid>
 
     </Grid>

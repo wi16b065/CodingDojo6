@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="600"
              DataContext="{Binding Source={StaticResource Locator}, Path=Overview}">
-    <Grid>
+
+    <Grid >
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -15,7 +16,7 @@
         </Grid.ColumnDefinitions>
 
         <!--category list section-->
-        <ListBox Margin="3" ItemsSource="{Binding Category}" SelectedItem="{Binding SelectedCategory}">
+        <ListBox Margin="3,50,3,3" ItemsSource="{Binding Category}" SelectedItem="{Binding SelectedCategory}" Background="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="Black" BorderThickness="3" CornerRadius="5" Width="200">
@@ -30,6 +31,7 @@
 
         <!--category detail section to display a button within a list element -> ItemsControl; do not use ListBox-->
         <!--Listbox = ItemsControl but ItemsControl =! Listbox-->
+
         <ItemsControl x:Name="MyItems" ItemsSource="{Binding SelectedCategory.ItemsInCategory}" Grid.Column="1" Grid.Row="0">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -55,5 +57,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
     </Grid>
 </UserControl>

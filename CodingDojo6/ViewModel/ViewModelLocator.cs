@@ -14,6 +14,7 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
 
 namespace CodingDojo6.ViewModel
@@ -42,9 +43,10 @@ namespace CodingDojo6.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
             //Register all Vms => only one instance
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<OverviewVM>();
-            SimpleIoc.Default.Register<MyToysVM>();
+            SimpleIoc.Default.Register<Messenger>(true);
+            SimpleIoc.Default.Register<OverviewVM>(true);
+            SimpleIoc.Default.Register<MyToysVM>(true);
+            SimpleIoc.Default.Register<MainViewModel>(true);
         }
 
         public MainViewModel Main

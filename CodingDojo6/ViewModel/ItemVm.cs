@@ -21,11 +21,15 @@ namespace CodingDojo6.ViewModel
         {
             Description = description;
             AgeRecom = ageRecom;
-            Image = image;
+            Image = image;           
         }
 
+        public ItemVm Clone(ItemVm item)
+        {
+            ItemVm itemCopy = new ItemVm(item.Description, item.AgeRecom, item.Image);
+            return itemCopy;
+        }
 
-        //singleton pattern
         public void AddItemToCategory(ItemVm item)
         {
             if (ItemsInCategory == null)

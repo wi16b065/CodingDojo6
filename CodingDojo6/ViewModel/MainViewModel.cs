@@ -1,6 +1,11 @@
+using System;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace CodingDojo6.ViewModel
 {
@@ -24,6 +29,61 @@ namespace CodingDojo6.ViewModel
         /// 
         private ViewModelBase currentVM;
 
+        private Messenger msg = SimpleIoc.Default.GetInstance<Messenger>();
+
+        DispatcherTimer timer = new DispatcherTimer();
+
+        private string infoMsg = "";
+
+        private BitmapImage msgImage;
+
+        private bool isInfo = false;
+
+        //private Visibility showBorder = Visibility.Hidden;
+
+        //public Visibility ShowBorder
+        //{
+        //    get { return showBorder; }
+        //    set
+        //    {
+        //        showBorder = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+
+
+        public bool IsInfo
+        {
+            get { return isInfo; }
+            set
+            {
+                isInfo = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage MsgImage
+        {
+            get { return msgImage; }
+            set
+            {
+                msgImage = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public string InfoMsg
+        {
+            get { return infoMsg; }
+            set {
+
+                infoMsg = value;
+                RaisePropertyChanged();
+            }
+        }
+
+
         public ViewModelBase CurrentVM
         {
             get
@@ -40,6 +100,9 @@ namespace CodingDojo6.ViewModel
 
         public MainViewModel()
         {
+            //register is needed to receive sent messages
+            msg.Register<PropertyChangedMessage<string>>(this, "InfoMsg", generateInfo);
+
             OverviewBtnClickedCmd = new RelayCommand(() =>
             {
                 CurrentVM = SimpleIoc.Default.GetInstance<OverviewVM>();
@@ -48,6 +111,31 @@ namespace CodingDojo6.ViewModel
             {
                 CurrentVM = SimpleIoc.Default.GetInstance<MyToysVM>();
             });
+            
+            //initialize default view
+            CurrentVM = SimpleIoc.Default.GetInstance<OverviewVM>();
+
+        }
+
+        private void generateInfo(PropertyChangedMessage<string> obj)
+        {
+            //obj.NewValue -> message sent from OverviewVM
+            MsgImage = new BitmapImage(new Uri(obj.NewValue.Split(';')[0],UriKind.Relative));
+            InfoMsg = obj.NewValue.Split(';')[1];
+            IsInfo = true;
+            //ShowBorder = Visibility.Visible; 
+            timer.Interval = new TimeSpan(0, 0, 2);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            IsInfo = false;
+            //ShowBorder = Visibility.Hidden;
+            InfoMsg = "";
+            MsgImage = null;
+            timer.Stop();
         }
     }
 }

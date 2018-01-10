@@ -1,5 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +15,7 @@ namespace CodingDojo6.ViewModel
     public class OverviewVM : ViewModelBase
     {
         private ItemVm selectedCategory;
+        private Messenger messenger = SimpleIoc.Default.GetInstance<Messenger>();
 
         public ItemVm SelectedCategory
         {
@@ -54,6 +57,8 @@ namespace CodingDojo6.ViewModel
             BuyBtnClickedCmd = new RelayCommand<ItemVm>((itemOfPurchase) =>
             {
                 Cart.Add(itemOfPurchase);
+                messenger.Send(new PropertyChangedMessage<ItemVm>(null,itemOfPurchase,""),"Write");
+                messenger.Send(new PropertyChangedMessage<string>(null, "/Images/State_Info.png;New Entry Added", ""),"InfoMsg");
                 foreach (var item in Cart)
                 {
                     Console.WriteLine(item.Description);

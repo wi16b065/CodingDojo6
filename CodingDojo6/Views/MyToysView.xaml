@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="500"
              DataContext="{Binding Source={StaticResource Locator}, Path=MyToys}">
     <Grid>
-        <ListBox ItemsSource="{Binding MyToysCollection}">
+        <ListBox ItemsSource="{Binding MyToysCollection}" Background="Transparent" BorderBrush="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"></StackPanel>
@@ -16,7 +16,7 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding Image}" Height="70" Margin="5,0,5,0"></Image>
+                    <Image Source="{Binding Image}" Height="70"></Image>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
