@@ -10,7 +10,7 @@
         Title="MainWindow" Height="700" Width="950"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
 
-
+    <!--Robert Chochole - wi16b065-->
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConv"/>
     </Window.Resources>
